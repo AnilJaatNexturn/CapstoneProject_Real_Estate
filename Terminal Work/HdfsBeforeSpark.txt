@@ -1,0 +1,31 @@
+aniljat@DESKTOP-JSCQMT9:~$ sudo su
+[sudo] password for aniljat:
+root@DESKTOP-JSCQMT9:/home/aniljat# su - hadoopusr
+hadoopusr@DESKTOP-JSCQMT9:~$ start-all.sh
+WARNING: Attempting to start all Apache Hadoop daemons as hadoopusr in 10 seconds.
+WARNING: This is not a recommended production deployment configuration.
+WARNING: Use CTRL-C to abort.
+Starting namenodes on [localhost]
+Starting datanodes
+Starting secondary namenodes [DESKTOP-JSCQMT9]
+Starting resourcemanager
+Starting nodemanagers
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -ls /data/dataset
+Found 2 items
+-rwxrwxrwx   1 hadoopusr supergroup  689627012 2023-09-16 16:37 /data/dataset/City_time_series.csv
+-rwxrwxrwx   1 hadoopusr supergroup    1074309 2023-09-16 16:37 /data/dataset/cities_crosswalk.csv
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -mkdir /Avg_Property_Price
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -mkdir /Top_Regions_ZHVI
+mkdir: `/Top_Regions_ZHVI': File exists
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -rm -r  /Top_Regions_ZHVI
+Deleted /Top_Regions_ZHVI
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -mkdir /Top_Regions_ZHVI
+hadoopusr@DESKTOP-JSCQMT9:~$  hadoop fs -mkdir /Top_Regions_ZRI
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -ls /Top_Regions_ZHVI
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -ls /Top_Regions_ZRI
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -ls /Avg_Property_Price
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -chmod -R 777 /Avg_Property_Price
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -chmod -R 777 /Top_Regions_ZHVI
+hadoopusr@DESKTOP-JSCQMT9:~$ hadoop fs -chmod -R 777 /Top_Regions_ZRI
+
+

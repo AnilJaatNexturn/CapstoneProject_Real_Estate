@@ -1,0 +1,26 @@
+aniljat@DESKTOP-JSCQMT9:~$ sudo su
+[sudo] password for aniljat:
+root@DESKTOP-JSCQMT9:/home/aniljat# cd ..
+root@DESKTOP-JSCQMT9:/home# ls
+UbuntuData  aniljat  derby.log  hadoopusr  metastore_db  my_spark_script.py  sp.py  sp.py.save  spark-warehouse
+root@DESKTOP-JSCQMT9:/home# cd hadoopusr/
+root@DESKTOP-JSCQMT9:/home/hadoopusr# mkdir dataset
+root@DESKTOP-JSCQMT9:/home/hadoopusr# cd dataset/
+root@DESKTOP-JSCQMT9:/home/hadoopusr/dataset#  cp  /mnt/f/CapstonProject/DataSets/City_time_series.csv /home/hadoopusr/dataset
+root@DESKTOP-JSCQMT9:/home/hadoopusr/dataset#  cp  /mnt/f/CapstonProject/DataSets/cities_crosswalk.csv /home/hadoopusr/dataset
+root@DESKTOP-JSCQMT9:/home/hadoopusr/dataset#  cp  hadoo
+root@DESKTOP-JSCQMT9:/home/hadoopusr/dataset# ls
+City_time_series.csv  DataDictionary.csv  cities_crosswalk.csv
+root@DESKTOP-JSCQMT9:/home/hadoopusr/dataset# cat cities_crosswalk.csv | head -5
+Unique_City_ID,City,County,State
+oak_grovechristianky,Oak Grove,Christian,KY
+jarvisburgcurritucknc,Jarvisburg,Currituck,NC
+mcminnvilleyamhillor,McMinnville,Yamhill,OR
+union_townshiperiepa,Union Township,Erie,PA
+root@DESKTOP-JSCQMT9:/home/hadoopusr/dataset# cat DataDictionary.csv | head -3
+Variable,Definition
+AgeOfInventory,"Each Wednesday, age of inventory is calculated as the median number of days all active listings as of that Wednesday have been current. These medians are then aggregated into the number reported by taking the median across weekly values."
+DaysOnZillow,"The median days on market of homes sold within a given month, including foreclosure re-sales. The latest data is for one month prior to the current ZHVI (e.g., if the most current month for ZHVI data is January, the most current month for Days on Zillow data will be December)."
+root@DESKTOP-JSCQMT9:/home/hadoopusr/dataset# cat City_time_series.csv | head -2
+Date,RegionName,InventorySeasonallyAdjusted_AllHomes,InventoryRaw_AllHomes,MedianListingPricePerSqft_1Bedroom,MedianListingPricePerSqft_2Bedroom,MedianListingPricePerSqft_3Bedroom,MedianListingPricePerSqft_4Bedroom,MedianListingPricePerSqft_5BedroomOrMore,MedianListingPricePerSqft_AllHomes,MedianListingPricePerSqft_CondoCoop,MedianListingPricePerSqft_DuplexTriplex,MedianListingPricePerSqft_SingleFamilyResidence,MedianListingPrice_1Bedroom,MedianListingPrice_2Bedroom,MedianListingPrice_3Bedroom,MedianListingPrice_4Bedroom,MedianListingPrice_5BedroomOrMore,MedianListingPrice_AllHomes,MedianListingPrice_CondoCoop,MedianListingPrice_DuplexTriplex,MedianListingPrice_SingleFamilyResidence,MedianPctOfPriceReduction_AllHomes,MedianPctOfPriceReduction_CondoCoop,MedianPctOfPriceReduction_SingleFamilyResidence,MedianPriceCutDollar_AllHomes,MedianPriceCutDollar_CondoCoop,MedianPriceCutDollar_SingleFamilyResidence,MedianRentalPricePerSqft_1Bedroom,MedianRentalPricePerSqft_2Bedroom,MedianRentalPricePerSqft_3Bedroom,MedianRentalPricePerSqft_4Bedroom,MedianRentalPricePerSqft_5BedroomOrMore,MedianRentalPricePerSqft_AllHomes,MedianRentalPricePerSqft_CondoCoop,MedianRentalPricePerSqft_DuplexTriplex,MedianRentalPricePerSqft_MultiFamilyResidence5PlusUnits,MedianRentalPricePerSqft_SingleFamilyResidence,MedianRentalPricePerSqft_Studio,MedianRentalPrice_1Bedroom,MedianRentalPrice_2Bedroom,MedianRentalPrice_3Bedroom,MedianRentalPrice_4Bedroom,MedianRentalPrice_5BedroomOrMore,MedianRentalPrice_AllHomes,MedianRentalPrice_CondoCoop,MedianRentalPrice_DuplexTriplex,MedianRentalPrice_MultiFamilyResidence5PlusUnits,MedianRentalPrice_SingleFamilyResidence,MedianRentalPrice_Studio,ZHVIPerSqft_AllHomes,PctOfHomesDecreasingInValues_AllHomes,PctOfHomesIncreasingInValues_AllHomes,PctOfHomesSellingForGain_AllHomes,PctOfHomesSellingForLoss_AllHomes,PctOfListingsWithPriceReductionsSeasAdj_AllHomes,PctOfListingsWithPriceReductionsSeasAdj_CondoCoop,PctOfListingsWithPriceReductionsSeasAdj_SingleFamilyResidence,PctOfListingsWithPriceReductions_AllHomes,PctOfListingsWithPriceReductions_CondoCoop,PctOfListingsWithPriceReductions_SingleFamilyResidence,PriceToRentRatio_AllHomes,Sale_Counts,Sale_Counts_Seas_Adj,Sale_Prices,ZHVI_1bedroom,ZHVI_2bedroom,ZHVI_3bedroom,ZHVI_4bedroom,ZHVI_5BedroomOrMore,ZHVI_AllHomes,ZHVI_BottomTier,ZHVI_CondoCoop,ZHVI_MiddleTier,ZHVI_SingleFamilyResidence,ZHVI_TopTier,ZRI_AllHomes,ZRI_AllHomesPlusMultifamily,ZriPerSqft_AllHomes,Zri_MultiFamilyResidenceRental,Zri_SingleFamilyResidenceRental
+1996-04-30,abbottstownadamspa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,108700,,,,,

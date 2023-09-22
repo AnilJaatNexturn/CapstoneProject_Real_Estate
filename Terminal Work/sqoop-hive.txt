@@ -1,0 +1,127 @@
+[cloudera@quickstart ~]$ hive
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> show databases;
+OK
+default
+export_db
+Time taken: 0.017 seconds, Fetched: 3 row(s)
+hive> create database Capstone;
+OK
+Time taken: 0.18 seconds
+hive> use capstone;
+OK
+Time taken: 0.094 seconds
+hive> create table City_data(Date DATE, RegionName STRING, ZHVI_AllHomes FLOAT, ZRI_AllHomes FLOAT);
+OK
+Time taken: 0.332 seconds
+hive> describe City_data;
+OK
+date                	date                	                    
+regionname          	string              	                    
+zhvi_allhomes       	float               	                    
+zri_allhomes        	float               	                    
+Time taken: 0.156 seconds, Fetched: 4 row(s)
+hive> create table cities_crosswalk(Unique_City_ID STRING, City STRING, Country STRING, State STRING);
+OK
+Time taken: 0.266 seconds
+hive> describe cities_crosswalk;
+OK
+unique_city_id      	string              	                    
+city                	string              	                    
+country             	string              	                    
+state               	string              	                    
+Time taken: 0.228 seconds, Fetched: 4 row(s)
+hive> show tables;
+OK
+cities_crosswalk
+city_data
+Time taken: 0.052 seconds, Fetched: 2 row(s)
+hive> describe City_data;
+OK
+date                	date                	                    
+regionname          	string              	                    
+zhvi_allhomes       	float               	                    
+zri_allhomes        	float               	                    
+Time taken: 0.153 seconds, Fetched: 4 row(s)
+hive> select * from City_data limit 10;
+OK
+2010-11-30	abbevillelafayettems	118100.0	913.0
+2010-11-30	abbottstownadamspa	156600.0	1140.0
+2010-11-30	aberdeengrays_harborwa	107400.0	970.0
+2010-11-30	aberdeenharfordmd	205100.0	1413.0
+2010-11-30	aberdeenmoorenc	138600.0	949.0
+2010-11-30	abilenedickinsonks	92900.0	848.0
+2010-11-30	abingdonharfordmd	232400.0	1593.0
+2010-11-30	abingtonmontgomerypa	247000.0	1629.0
+2010-11-30	abingtonplymouthma	257800.0	1471.0
+2010-11-30	abseconatlanticnj	177700.0	1566.0
+Time taken: 0.14 seconds, Fetched: 10 row(s)
+hive> select count(*) from City_data;
+Query ID = cloudera_20230920035858_b447d9b6-b978-433b-a36d-d24e9dec2d35
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1695115881461_0005, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1695115881461_0005/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1695115881461_0005
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-09-20 04:00:49,559 Stage-1 map = 0%,  reduce = 0%
+2023-09-20 04:01:50,198 Stage-1 map = 0%,  reduce = 0%
+2023-09-20 04:01:56,458 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 5.06 sec
+2023-09-20 04:02:25,257 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.57 sec
+MapReduce Total cumulative CPU time: 7 seconds 570 msec
+Ended Job = job_1695115881461_0005
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.57 sec   HDFS Read: 43195279 HDFS Write: 7 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 570 msec
+OK
+919776
+Time taken: 214.508 seconds, Fetched: 1 row(s)
+hive> select * from cities_crosswalk limit 10;
+OK
+aaronsburgcentrepa	Aaronsburg	Centre	PA
+abbevilleabbevillesc	Abbeville	Abbeville	SC
+abbevillehenryal	Abbeville	Henry	AL
+abbevillelafayettems	Abbeville	Lafayette	MS
+abbevillevermilionla	Abbeville	Vermilion	LA
+abbevillewilcoxga	Abbeville	Wilcox	GA
+abbotpiscataquisme	Abbot	Piscataquis	ME
+abbotsfordclarkwi	Abbotsford	Clark	WI
+abbottpotterpa	Abbott	Potter	PA
+abbottstownadamspa	Abbottstown	Adams	PA
+Time taken: 0.12 seconds, Fetched: 10 row(s)
+hive> select count(*) from cities_crosswalk;
+Query ID = cloudera_20230920040404_5e304cd6-501d-4450-ba31-a9feb87f6dce
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1695115881461_0006, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1695115881461_0006/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1695115881461_0006
+Hadoop job information for Stage-1: number of mappers: 2; number of reducers: 1
+2023-09-20 04:05:08,668 Stage-1 map = 0%,  reduce = 0%
+2023-09-20 04:05:36,656 Stage-1 map = 50%,  reduce = 0%, Cumulative CPU 1.8 sec
+2023-09-20 04:05:37,732 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.17 sec
+2023-09-20 04:05:52,190 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.44 sec
+MapReduce Total cumulative CPU time: 6 seconds 440 msec
+Ended Job = job_1695115881461_0006
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 2  Reduce: 1   Cumulative CPU: 6.44 sec   HDFS Read: 1086086 HDFS Write: 6 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 440 msec
+OK
+25341
+Time taken: 63.029 seconds, Fetched: 1 row(s)
+hive> 
+
