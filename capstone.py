@@ -49,8 +49,7 @@ def fun1():
     df = df.coalesce(1)
     df.write.mode("overwrite").option("header",True).csv("hdfs://localhost:9000/Avg_Property_Price")
 
-
-    def fun2():
+def fun2():
     df2 = spark.sql("""
     WITH RegionAverages AS (
     SELECT
@@ -117,7 +116,7 @@ start_task=DummyOperator(task_id='start_task',dag=dags)
 end_task=DummyOperator(task_id='end_task',dag=dags)
 spark_task1=PythonOperator(task_id='Avg_Property_Price',python_callable=fun1,dag=dags)
 spark_task2=PythonOperator(task_id='Top_Regions_ZHVI',python_callable=fun2,dag=dags)
-spark_task3=PythonOperator(task_id='Top_Regions_ZRI',python_callable=fun2,dag=dags)
+spark_task3=PythonOperator(task_id='Top_Regions_ZRI',python_callable=fun3,dag=dags)
 start_task>>[spark_task1,spark_task2,spark_task3]>>end_task>>send_email
 
 
