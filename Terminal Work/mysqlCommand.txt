@@ -1,0 +1,137 @@
+[cloudera@quickstart ~]$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 5.1.73 Source distribution
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| E_Commerce_Tables  |
+| cm                 |
+| firehose           |
+| hue                |
+| metastore          |
+| mysql              |
+| nav                |
+| navms              |
+| oozie              |
+| retail_db          |
+| rman               |
+| sentry             |
++--------------------+
+13 rows in set (0.07 sec)
+
+mysql> create database Capstone;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use Capstone;
+Database changed
+mysql> create table cities_crosswalk (Unique_City_ID VARCHAR(255) PRIMARY KEY, City VARCHAR(255),Country VARCHAR(255), State CHAR(12));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> describe cities_crosswalk;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| Unique_City_ID | varchar(255) | NO   | PRI | NULL    |       |
+| City           | varchar(255) | YES  |     | NULL    |       |
+| Country        | varchar(255) | YES  |     | NULL    |       |
+| State          | char(12)     | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> load data infile "/home/cloudera/capstone_project/cities_crosswalk.csv" into table cities_crosswalk FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+Query OK, 25341 rows affected (1.08 sec)
+Records: 25341  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from cities_crosswalk limit 10;
++----------------------+-------------+-------------+-------+
+| Unique_City_ID       | City        | Country     | State |
++----------------------+-------------+-------------+-------+
+   |ronsburgcentrepa   | Aaronsburg  | Centre      | PA
+   |bevilleabbevillesc | Abbeville   | Abbeville   | SC
+   |bevillehenryal     | Abbeville   | Henry       | AL
+   |bevillelafayettems | Abbeville   | Lafayette   | MS
+   |bevillevermilionla | Abbeville   | Vermilion   | LA
+   |bevillewilcoxga    | Abbeville   | Wilcox      | GA
+   |botpiscataquisme   | Abbot       | Piscataquis | ME
+   |botsfordclarkwi    | Abbotsford  | Clark       | WI
+   |bottpotterpa       | Abbott      | Potter      | PA
+   |bottstownadamspa   | Abbottstown | Adams       | PA
++----------------------+-------------+-------------+-------+
+10 rows in set (0.00 sec)
+
+mysql> create table City_data(Date DATE, RegionName VARCHAR(255), ZHVI_ALLHomes FLOAT, ZRI_AllHomes FLOAT, PRIMARY KEY(Date, RegionName));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> describe City_data;
++---------------+--------------+------+-----+------------+-------+
+| Field         | Type         | Null | Key | Default    | Extra |
++---------------+--------------+------+-----+------------+-------+
+| Date          | date         | NO   | PRI | 0000-00-00 |       |
+| RegionName    | varchar(255) | NO   | PRI |            |       |
+| ZHVI_ALLHomes | float        | YES  |     | NULL       |       |
+| ZRI_AllHomes  | float        | YES  |     | NULL       |       |
++---------------+--------------+------+-----+------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_Capstone |
++--------------------+
+| City_data          |
+| cities_crosswalk   |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> load data infile "/home/cloudera/capstone_project/City_time_series.csv" INTO TABLE City_data FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES
+(Date,RegionName,@dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy,ZHVI_ALLHomes,@dummy, @dummy, @dummy, @dummy, @dummy,ZRI_AllHomes,@dummy, @dummy, @dummy, @dummy);
+Query OK, 919776 rows affected, 65535 warnings (14.63 sec)
+Records: 919776  Deleted: 0  Skipped: 0  Warnings: 919776
+
+mysql> select * from City_data limit 10;
++------------+------------------------+---------------+--------------+
+| Date       | RegionName             | ZHVI_ALLHomes | ZRI_AllHomes |
++------------+------------------------+---------------+--------------+
+| 2010-11-30 | abbevillelafayettems   |        118100 |          913 |
+| 2010-11-30 | abbottstownadamspa     |        156600 |         1140 |
+| 2010-11-30 | aberdeengrays_harborwa |        107400 |          970 |
+| 2010-11-30 | aberdeenharfordmd      |        205100 |         1413 |
+| 2010-11-30 | aberdeenmoorenc        |        138600 |          949 |
+| 2010-11-30 | abilenedickinsonks     |         92900 |          848 |
+| 2010-11-30 | abingdonharfordmd      |        232400 |         1593 |
+| 2010-11-30 | abingtonmontgomerypa   |        247000 |         1629 |
+| 2010-11-30 | abingtonplymouthma     |        257800 |         1471 |
+| 2010-11-30 | abseconatlanticnj      |        177700 |         1566 |
++------------+------------------------+---------------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from City_data;
++----------+
+| count(*) |
++----------+
+|   919776 |
++----------+
+1 row in set (0.51 sec)
+
+mysql> select count(*) from cities_crosswalk;
++----------+
+| count(*) |
++----------+
+|    25341 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> 
+
